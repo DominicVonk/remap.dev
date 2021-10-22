@@ -11,7 +11,18 @@ addEventListener("fetch", async (event) => {
   if (contentType.includes("application/json")) {
     const json = await request.json();
 
-    event.respondWith(new Response(JSON.stringify({ json }, null, 2), responseInit));
+    const response = await fetch(json.url, {
+      method: json.method || 'get',
+      body: json.body ? JSON.stringify(json.body) : undefined,
+      headers: {
+        'Content-Type': 'application/json',
+        ...(json.headers || {})
+      }
+    });
+
+    const body = await response.json();
+
+    event.respondWith(new Response(JSON.stringify(body, null, 2), responseInit));
     return 
   }
 });
