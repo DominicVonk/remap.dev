@@ -6,9 +6,24 @@ addEventListener("fetch", async (event) => {
       "Content-Type": "application/json; charset=utf-8",
     },
   };
-
+  if (request.method !== "POST") {
+    
+    event.respondWith(new Response(`Make a post request with:
+    POST https://remap.dev
+    {
+      url: "url",
+      method: "POST|GET|PUT|DELETE|PATCH",
+      body: {"json":"body"},
+      headers: {}
+    }
+    `, {
+      headers: {
+        'Content-Type': 'text/plain'
+      }
+    }));
+  }
   // Handle JSON data.
-  if (contentType.includes("application/json")) {
+  if (contentType?.includes("application/json")) {
     const json = await request.json();
 
     const response = await fetch(json.url, {
