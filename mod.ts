@@ -1,4 +1,4 @@
-addEventListener("fetch", (event) => {
+addEventListener("fetch", async (event) => {
   const request = event.request;
   const contentType = request.headers.get("content-type");
   const responseInit = {
@@ -10,7 +10,8 @@ addEventListener("fetch", (event) => {
   // Handle JSON data.
   if (contentType.includes("application/json")) {
     const json = await request.json();
-    return new Response(JSON.stringify({ json }, null, 2), responseInit);
+
+    event.respondWith(new Response(JSON.stringify({ json }, null, 2), responseInit));
+    return 
   }
-  event.respondWith(new Response("Hello world"));
 });
