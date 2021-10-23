@@ -9,13 +9,13 @@ addEventListener("fetch", async (event) => {
   if (request.method !== "POST") {
     
     event.respondWith(new Response(`Make a post request with:
-    POST https://remap.dev
-    {
-      url: "url",
-      method: "POST|GET|PUT|DELETE|PATCH",
-      body: {"json":"body"},
-      headers: {}
-    }
+POST https://remap.dev
+{
+  url: "url",
+  method: "POST|GET|PUT|DELETE|PATCH",
+  body: {"json":"body"},
+  headers: {}
+}
     `, {
       headers: {
         'Content-Type': 'text/plain'
